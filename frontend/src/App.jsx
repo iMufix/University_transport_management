@@ -6,6 +6,7 @@ import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { BusManagement } from './pages/BusManagement';
 import { RouteManagement } from './pages/RouteManagement';
+import { StudentManagement } from './pages/StudentManagement';
 import { AdminLayout } from './layouts/AdminLayout';
 
 const ProtectedRoute = ({ children }) => {
@@ -24,7 +25,7 @@ const Dashboard = () => {
         <p className="text-gray-500 text-sm mt-2 font-medium">Access Profile: <span className="uppercase tracking-wider font-bold text-gray-900 bg-white px-2 py-1 rounded border border-gray-200 shadow-sm ml-1">{user?.role}</span></p>
       </div>
       
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Link to="/dashboard/buses" className="bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer hover:border-blue-200 hover:shadow-md transition-all group block">
           <div className="h-10 w-10 bg-gray-50 rounded-lg flex justify-center items-center mb-4 group-hover:bg-blue-50 transition-colors">
             <svg className="w-5 h-5 text-gray-600 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
@@ -41,13 +42,13 @@ const Dashboard = () => {
           <p className="text-sm text-gray-500 mt-2 leading-relaxed">Configure dropoff points and align timing metrics seamlessly.</p>
         </Link>
         
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer hover:border-blue-200 hover:shadow-md transition-all group block opacity-60">
+        <Link to="/dashboard/students" className="bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer hover:border-blue-200 hover:shadow-md transition-all group block">
           <div className="h-10 w-10 bg-gray-50 rounded-lg flex justify-center items-center mb-4 group-hover:bg-blue-50 transition-colors">
-            <svg className="w-5 h-5 text-gray-600 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <svg className="w-5 h-5 text-gray-600 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
           </div>
-          <h3 className="font-bold text-gray-900">Preferences</h3>
-          <p className="text-sm text-gray-500 mt-2 leading-relaxed">Update system profile parameters and configure visual output.</p>
-        </div>
+          <h3 className="font-bold text-gray-900">Student Allocations</h3>
+          <p className="text-sm text-gray-500 mt-2 leading-relaxed">Automatically assign students to buses using smart location matching.</p>
+        </Link>
       </div>
     </AdminLayout>
   );
@@ -75,6 +76,12 @@ function App() {
       <Route path="/dashboard/routes" element={
         <ProtectedRoute>
           <RouteManagement />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/dashboard/students" element={
+        <ProtectedRoute>
+          <StudentManagement />
         </ProtectedRoute>
       } />
 
