@@ -7,6 +7,7 @@ import studentRoutes from './studentRoutes.js';
 import attendanceRoutes from './attendanceRoutes.js';
 import notificationRoutes from './notificationRoutes.js';
 import complaintRoutes from './complaintRoutes.js';
+import analyticsRoutes from './analyticsRoutes.js';
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.use('/students', studentRoutes);
 router.use('/attendance', attendanceRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/complaints', complaintRoutes);
+router.use('/analytics', analyticsRoutes);
 
 export default router;

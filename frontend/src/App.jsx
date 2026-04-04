@@ -11,6 +11,7 @@ import { AttendanceManagement } from './pages/AttendanceManagement';
 import { Notifications } from './pages/Notifications';
 import { Complaints } from './pages/Complaints';
 import { AdminLayout } from './layouts/AdminLayout';
+import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
@@ -32,6 +33,8 @@ const Dashboard = () => {
           <svg width="200" height="200" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
       </div>
+
+      {user?.role === 'admin' && <AnalyticsDashboard />}
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <Link to="/dashboard/buses" className="bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer hover:border-blue-200 hover:shadow-md transition-all group block">
