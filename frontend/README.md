@@ -1,11 +1,50 @@
-# React + Vite
+# University Transport Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based frontend for the University Transport Management System at Annamalai University.
 
-Currently, two official plugins are available:
+## Project Details
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **College**: Annamalai University
+- **Developed by**: Gobika C
+
+## Overview
+
+This application provides a comprehensive transport management solution for universities, featuring bus management, route planning, student attendance tracking, and complaint handling.
+
+## Features
+
+- Bus fleet management
+- Route optimization
+- Real-time attendance tracking
+- Student management
+- Notification system
+- Complaint resolution
+- Analytics dashboard
+
+## Tech Stack
+
+- React 18
+- Vite
+- Tailwind CSS
+- React Router
+- Axios for API calls
+
+## Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Build for production:
+   ```bash
+   npm run build
+   ```
 
 ## React Compiler
 

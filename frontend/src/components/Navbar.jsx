@@ -7,7 +7,7 @@ export const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-xl font-bold text-gray-900 tracking-tight">
-              Campus<span className="text-blue-600">Transport</span>
+              Annamalai University <span className="text-blue-600">Transport</span>
             </Link>
           </div>
           <div className="flex items-center space-x-4">

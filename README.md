@@ -1,6 +1,6 @@
-# Campus Transport Management System (MERN Stack)
+# Annamalai University Transport Management System (MERN Stack)
 
-This project has been refactored into a clean, highly scalable MERN stack architecture.
+This project has been developed for Annamalai University by Gobika C. It provides a comprehensive transport management solution refactored into a clean, highly scalable MERN stack architecture.
 
 ## Project Structure
 

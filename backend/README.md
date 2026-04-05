@@ -1,6 +1,6 @@
-# Campus Transport Management System
+# Annamalai University Transport Management System - Backend
 
-A production-grade Node.js backend using Express.js.
+A production-grade Node.js backend using Express.js, developed by Gobika C for Annamalai University.
 
 ## Architecture
 

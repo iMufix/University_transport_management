@@ -10,7 +10,7 @@ export const Home = () => {
       <main className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
-            Intelligent transit for modern campuses.
+            Intelligent transit for Annamalai University.
           </h1>
           <p className="text-xl text-gray-500 mb-10 leading-relaxed">
             Manage fleets, track real-time attendance, and simplify student commutes with our minimal, all-in-one transport management system.
@@ -65,9 +65,14 @@ export const Home = () => {
       </main>
 
       <footer className="border-t border-gray-200 mt-16 py-8">
-        <p className="text-center text-gray-400 text-sm">
-          &copy; {new Date().getFullYear()} Campus Transport. Built for educational facilities.
-        </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400 text-sm mb-2">
+            Annamalai University Transport Management System
+          </p>
+          <p className="text-gray-400 text-sm">
+            Developed by Gobika C &copy; {new Date().getFullYear()}
+          </p>
+        </div>
       </footer>
     </div>
   );
