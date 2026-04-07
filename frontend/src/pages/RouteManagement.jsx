@@ -8,9 +8,14 @@ import api from '../services/api';
 
 export const RouteManagement = () => {
   const [routes, setRoutes] = useState([]);
+  const [drivers, setDrivers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [assignLoading, setAssignLoading] = useState(false);
   const [error, setError] = useState('');
+  const [assignError, setAssignError] = useState('');
   
   const [formData, setFormData] = useState({
     name: '',
@@ -18,17 +23,25 @@ export const RouteManagement = () => {
     timings: [{ departureTime: '', shift: '' }]
   });
 
-  const fetchRoutes = async () => {
+  const [assignFormData, setAssignFormData] = useState({
+    driverId: ''
+  });
+
+  const fetchData = async () => {
     try {
-      const { data } = await api.get('/routes');
-      setRoutes(data);
+      const [routesRes, driversRes] = await Promise.all([
+        api.get('/routes'),
+        api.get('/users')
+      ]);
+      setRoutes(routesRes.data);
+      setDrivers(driversRes.data.filter(user => user.role === 'driver'));
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    fetchRoutes();
+    fetchData();
   }, []);
 
   const handleAddStop = () => {
@@ -87,11 +100,36 @@ export const RouteManagement = () => {
     if (window.confirm('Are you sure you want to delete this route?')) {
       try {
         await api.delete(`/routes/${id}`);
-        fetchRoutes();
+        fetchData();
       } catch (err) {
         console.error(err);
       }
     }
+  };
+
+  const handleAssignRoute = async (e) => {
+    e.preventDefault();
+    setAssignLoading(true);
+    setAssignError('');
+    try {
+      await api.put('/buses/assign-route', {
+        driverId: assignFormData.driverId,
+        routeId: selectedRoute._id
+      });
+      setIsAssignModalOpen(false);
+      setAssignFormData({ driverId: '' });
+      setSelectedRoute(null);
+      fetchData();
+    } catch (err) {
+      setAssignError(err.response?.data?.message || 'Failed to assign route');
+    } finally {
+      setAssignLoading(false);
+    }
+  };
+
+  const openAssignModal = (route) => {
+    setSelectedRoute(route);
+    setIsAssignModalOpen(true);
   };
 
   return (
@@ -125,6 +163,9 @@ export const RouteManagement = () => {
                 {route.timings.map(t => t.departureTime).join(' • ')}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium border-b border-gray-50">
+                <button onClick={() => openAssignModal(route)} className="text-blue-500 hover:text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors mr-2 opacity-0 group-hover:opacity-100">
+                  Assign
+                </button>
                 <button onClick={() => deleteRoute(route._id)} className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors opacity-0 group-hover:opacity-100">
                   Delete
                 </button>
@@ -215,6 +256,37 @@ export const RouteManagement = () => {
             </button>
             <div className="flex-1">
               <Button type="submit" isLoading={loading}>Save Route</Button>
+            </div>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal isOpen={isAssignModalOpen} onClose={() => setIsAssignModalOpen(false)} title={`Assign Route: ${selectedRoute?.name}`}>
+        {assignError && <div className="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-100">{assignError}</div>}
+        <form onSubmit={handleAssignRoute} className="space-y-6">
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Select Driver</label>
+            <select
+              value={assignFormData.driverId}
+              onChange={(e) => setAssignFormData({ ...assignFormData, driverId: e.target.value })}
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-gray-900 outline-none text-sm transition-shadow"
+              required
+            >
+              <option value="">Choose a driver...</option>
+              {drivers.map((driver) => (
+                <option key={driver._id} value={driver._id}>
+                  {driver.name} ({driver.email})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="pt-4 flex gap-3">
+            <button type="button" onClick={() => setIsAssignModalOpen(false)} className="flex-1 bg-white border border-gray-300 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition shadow-sm">
+              Cancel
+            </button>
+            <div className="flex-1">
+              <Button type="submit" isLoading={assignLoading}>Assign Route</Button>
             </div>
           </div>
         </form>

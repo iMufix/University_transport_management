@@ -37,3 +37,13 @@ export const deleteBus = asyncHandler(async (req, res) => {
   }
   res.json({ message: 'Bus removed' });
 });
+
+export const assignRouteToDriver = asyncHandler(async (req, res) => {
+  const { driverId, routeId } = req.body;
+  const bus = await busService.assignRouteToDriver(driverId, routeId);
+  if (!bus) {
+    res.status(404);
+    throw new Error('Driver not found or not assigned to a bus');
+  }
+  res.json(bus);
+});

@@ -6,3 +6,8 @@ export const busSchema = Joi.object({
   driverId: Joi.string().hex().length(24).optional().allow(''),
   routeId: Joi.string().hex().length(24).optional().allow('')
 });
+
+export const assignRouteSchema = Joi.object({
+  driverId: Joi.string().hex().length(24).required(),
+  routeId: Joi.string().hex().length(24).required()
+});

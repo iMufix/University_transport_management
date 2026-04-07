@@ -1,8 +1,8 @@
 import express from 'express';
-import { createBus, getBuses, getBusById, updateBus, deleteBus } from '../controllers/busController.js';
+import { createBus, getBuses, getBusById, updateBus, deleteBus, assignRouteToDriver } from '../controllers/busController.js';
 import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
 import { validate } from '../middleware/validateMiddleware.js';
-import { busSchema } from '../validators/busValidator.js';
+import { busSchema, assignRouteSchema } from '../validators/busValidator.js';
 import { ROLES } from '../utils/constants.js';
 
 const router = express.Router();
@@ -15,5 +15,7 @@ router.route('/:id')
   .get(protect, getBusById)
   .put(protect, authorizeRoles(ROLES.ADMIN), validate(busSchema), updateBus)
   .delete(protect, authorizeRoles(ROLES.ADMIN), deleteBus);
+
+router.put('/assign-route', protect, authorizeRoles(ROLES.ADMIN), validate(assignRouteSchema), assignRouteToDriver);
 
 export default router;

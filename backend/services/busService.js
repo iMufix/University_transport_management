@@ -19,3 +19,11 @@ export const updateBus = async (id, busData) => {
 export const deleteBus = async (id) => {
   return await Bus.findByIdAndDelete(id);
 };
+
+export const assignRouteToDriver = async (driverId, routeId) => {
+  return await Bus.findOneAndUpdate(
+    { driverId },
+    { routeId },
+    { new: true }
+  ).populate('driverId', 'name email').populate('routeId');
+};
